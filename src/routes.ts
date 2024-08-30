@@ -6,7 +6,7 @@ import { validateUploadImageRequestBody } from './middleware/validateRequestBody
 
 const router = Router();
 
-router.post('/upload', validateUploadImageRequestBody, uploadImage);
+router.post('/upload', uploadImage);
 router.patch('/confirm', confirmMeasure);
 router.get('/:customer_code/list', listMeasures);
 

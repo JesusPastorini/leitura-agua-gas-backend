@@ -2,15 +2,13 @@ import { UploadImageRequestBody } from '../types/RequestBody';
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { v4 as uuidv4 } from 'uuid';
 import { RequestAi } from '../types/resultAi';
+import Measure from '../models/ExistingMeasure';
 
 export const checkExistingMeasure = async (
     customer_code: string,
-    measure_datetime: string,
+    measure_datetime: string
 ): Promise<boolean> => {
-
-    // verificar se já existe uma leitura
-    // Retornar true se existir, false caso contrário
-    return false;
+    return await Measure.checkExistingMeasure(customer_code, measure_datetime);
 };
 
 export const extractValueFromImage = async (image: string): Promise<RequestAi> => {

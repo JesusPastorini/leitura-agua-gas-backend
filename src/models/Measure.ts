@@ -10,4 +10,4 @@ const measureSchema = new Schema({
     measure_value: Number,
 });
 
-export default model('Measure', measureSchema);
+export default measureSchema;
