@@ -1,6 +1,16 @@
 import { Schema, model } from 'mongoose';
-import measureSchema from './Measure';
 import { IMeasure, IMeasureModel } from '../types/measure';
+
+// Definindo o esquema
+const measureSchema = new Schema({
+    customer_code: { type: String, required: true },
+    measure_uuid: { type: String, required: true },
+    measure_datetime: { type: Date, required: true },
+    measure_type: { type: String, required: true },
+    has_confirmed: { type: Boolean, default: false },
+    image_url: { type: String },
+    measure_value: { type: Number, required: true },
+});
 
 measureSchema.statics.checkExistingMeasure = async function (
     customer_code: string,

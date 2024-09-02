@@ -1,7 +1,6 @@
-import { UploadImageRequestBody } from '../types/RequestBody';
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { v4 as uuidv4 } from 'uuid';
-import { RequestAi } from '../types/resultAi';
+import { RequestAi } from '../types/RequestAi';
 import Measure from '../models/ExistingMeasure';
 
 export const checkExistingMeasure = async (
@@ -27,14 +26,16 @@ export const extractValueFromImage = async (image: string): Promise<RequestAi> =
             mimeType: mimeType
         }
     };
-    // Enviar a imagem para a API
-    const resultAi = await model.generateContent([imagePart, { text: "Quais são os numeros da imagem? retorne apenas os numeros" }]);
 
-    const response = resultAi.response;
+    // Enviar a imagem para a API
+    //const resultAi = await model.generateContent([imagePart, { text: "Quais os numeros da imagem? mostre somente os numeros" }]);
+
+    //const response = resultAi.response;
     // Acessa o valor do texto dentro do array
-    const textValue = response.candidates[0].content.parts[0].text;
-    const measureValue = parseInt(textValue, 10);
+    //const textValue = response.candidates[0].content.parts[0].text;
+    //const measureValue = parseInt(textValue, 10);
     const measureUuid = uuidv4();
+    const measureValue = 1111;
 
     return {
         image_url: cleanedImage,

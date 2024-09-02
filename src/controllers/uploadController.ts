@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { checkExistingMeasure, extractValueFromImage } from '../services/MeasureService';
+import { createMeasure } from '../services/createMeasure';
 
 export const uploadImage = async (req: Request, res: Response): Promise<Response> => {
-    const { image, customer_code, measure_datetime } = req.body;
+    const { image, customer_code, measure_datetime, measure_type } = req.body;
 
     try {
         // 1- Verificar se já existe uma leitura no mês
@@ -15,6 +16,7 @@ export const uploadImage = async (req: Request, res: Response): Promise<Response
         }
 
         const extractedValue = await extractValueFromImage(image);
+        await createMeasure(extractedValue, customer_code, measure_datetime, measure_type);
 
         return res.status(200).json({
             measure_value: extractedValue,
