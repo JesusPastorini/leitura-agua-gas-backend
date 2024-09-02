@@ -13,3 +13,8 @@ export interface IMeasure extends Document {
 export interface IMeasureModel extends Model<IMeasure> {
     checkExistingMeasure(customer_code: string, measure_datetime: string): Promise<boolean>;
 }
+
+export interface IMeasureConfirm extends Model<IMeasure> {
+    findByUUID(measure_uuid: string): Promise<IMeasure | null>;
+    confirmMeasure(measure_uuid: string, confirmed_value: number): Promise<void>;
+}
