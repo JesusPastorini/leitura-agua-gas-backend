@@ -18,3 +18,8 @@ export interface IMeasureConfirm extends Model<IMeasure> {
     findByUUID(measure_uuid: string): Promise<IMeasure | null>;
     confirmMeasure(measure_uuid: string, confirmed_value: number): Promise<void>;
 }
+
+export interface IListMeasuresParams {
+    customer_code: string;
+    measure_type?: any;
+}
