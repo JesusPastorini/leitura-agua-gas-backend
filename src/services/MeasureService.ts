@@ -28,14 +28,14 @@ export const extractValueFromImage = async (image: string): Promise<RequestAi> =
     };
 
     // Enviar a imagem para a API
-    //const resultAi = await model.generateContent([imagePart, { text: "Quais os numeros da imagem? mostre somente os numeros" }]);
+    const resultAi = await model.generateContent([imagePart, { text: "Quais os numeros da imagem? mostre somente os numeros" }]);
 
-    //const response = resultAi.response;
+    const response = resultAi.response;
     // Acessa o valor do texto dentro do array
-    //const textValue = response.candidates[0].content.parts[0].text;
-    //const measureValue = parseInt(textValue, 10);
+    const textValue = response.candidates[0].content.parts[0].text;
+    const measureValue = parseInt(textValue, 10);
     const measureUuid = uuidv4();
-    const measureValue = 1111;
+    //const measureValue = 1111;
 
     return {
         image_url: cleanedImage,

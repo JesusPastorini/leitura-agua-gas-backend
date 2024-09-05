@@ -4,8 +4,6 @@ import { listMeasures as listMeasuresService } from '../services/listService';
 export const listMeasures = async (req: Request, res: Response) => {
     const { customer_code } = req.params;
     const { measure_type } = req.query;
-    console.log(measure_type)
-
     try {
         if (measure_type && measure_type !== 'WATER' && measure_type !== 'GAS') {
             return res.status(400).json({
@@ -25,13 +23,7 @@ export const listMeasures = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             customer_code,
-            measures: measures.map(measure => ({
-                measure_uuid: measure.measure_uuid,
-                measure_datetime: measure.measure_datetime,
-                measure_type: measure.measure_type,
-                has_confirmed: measure.has_confirmed,
-                image_url: measure.image_url,
-            })),
+            measures: measures,
         });
     } catch (error) {
         return res.status(500).json({

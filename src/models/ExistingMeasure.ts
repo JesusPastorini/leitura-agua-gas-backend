@@ -3,7 +3,6 @@ import { IMeasure, IMeasureModel } from '../types/measure';
 
 // Definindo o esquema
 const measureSchema = new Schema({
-    customer_code: { type: String, required: true },
     measure_uuid: { type: String, required: true },
     measure_datetime: { type: Date, required: true },
     measure_type: { type: String, required: true },
@@ -11,8 +10,13 @@ const measureSchema = new Schema({
     image_url: { type: String },
     measure_value: { type: Number, required: true },
 });
+// Esquema para agrupar medidas por cliente
+const customerMeasuresSchema = new Schema({
+    customer_code: { type: String, required: true },
+    measures: { type: [measureSchema], default: [] },
+});
 
-measureSchema.statics.checkExistingMeasure = async function (
+customerMeasuresSchema.statics.checkExistingMeasure = async function (
     customer_code: string,
     measure_datetime: string
 ): Promise<boolean> {
@@ -24,7 +28,7 @@ measureSchema.statics.checkExistingMeasure = async function (
 
         const existingMeasure = await this.findOne({
             customer_code,
-            measure_datetime: {
+            'measures.measure_datetime': {
                 $gte: new Date(year, month, 1), // Início do mês
                 $lt: new Date(year, month + 1, 1) // Início do próximo mês
             }
@@ -38,6 +42,6 @@ measureSchema.statics.checkExistingMeasure = async function (
 };
 
 // Cria o modelo usando o esquema importado e a interface do modelo
-const Measure = model<IMeasure, IMeasureModel>('Measure', measureSchema);
+const Measure = model<IMeasure, IMeasureModel>('Measure', customerMeasuresSchema);
 
 export default Measure;
